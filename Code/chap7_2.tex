@@ -1,0 +1,95 @@
+\documentclass{article}
+
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{etoolbox}
+\usepackage{pgfplots, relsize}
+\usetikzlibrary{calc}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=newest}
+
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage[letterpaper, bottom=100pt]{geometry}
+\usepackage{physics}
+\usepackage{MnSymbol}
+\usepackage{float}
+
+\newcommand{\diff}[1]{\frac{\mathrm{d}#1}{\mathrm{d}t}}
+\newcommand{\tvert}{\biggr\rvert_{t_1}^{t_2}}
+\newcommand{\derv}{\frac{\mathrm{d}}{\mathrm{d}t}}
+\newcommand{\ddx}{\frac{\mathrm{d}}{\mathrm{d}x}}
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\dof}[1]{\mathrm{d}#1}
+\newcommand{\dydx}[1]{\frac{\mathrm{d}#1}{\dx}}
+
+\patchcmd\subequations
+ {\theparentequation\alph{equation}}
+ {\subequationsformat}
+ {}{}
+
+\newcommand{\subequationsformat}{\theparentequation.\arabic{equation}}
+
+\author{Laith}
+\title{Exponential Change and Separable Differential Equations}
+\date{1/30/2023}
+
+\begin{document}
+\maketitle
+
+\section{Exponential Change}
+Let $y$ be the size of a population at time $t$.
+\[\mathrm{y}(t)\]
+If rate of change of $y$ is proportional to its size $y$; then
+\[\diff{y} = ky\,,\,k>0 \text{  and the population is increasing.}\]
+\[
+    \Rightarrow \,\, \frac{1}{y}\diff{y} = k \,\,
+    \Rightarrow \,\, \frac{1}{y} \dof{y} \,\,
+    \Rightarrow \,\, \int\frac{1}{y}\dof{y} = \int k\dof{t} \,\,
+    \Rightarrow \,\, \ln\abs{y}=kt+C 
+\]
+
+\[
+    \ln\abs{y}=kt+C\rightarrow e^{\ln y} = e^{kt+C}
+    = e^c\cdot e^{kt}=Ce^{kt}
+\]
+
+\[\abs{y} = Ce^{kt} \,\, \Rightarrow \boxed{y=\pm Ce^{kt}}\]
+
+\begin{center}
+\begin{tikzpicture}
+    \begin{axis} 
+        [
+            scale=0.5,
+            domain=-3:3,
+            xtick, ytick,
+            xmax = 3,
+            ymin=0,
+            axis lines = center
+        ]
+        \addplot[dashed, domain=-3:0] {2^x+1}; 
+        \addplot[-stealth, domain=0:3] {2^x+1}; 
+
+        \node[scale=2] at (0, 2^0+1) {.};
+        \node[xshift=-10, above] at (0, 2^0+1) {$y_0$};
+    \end{axis}
+\end{tikzpicture}
+\end{center}
+\[y(0) = y_0\]
+
+\newpage
+\section{Separable Differential Equations}
+Let $\dydx{y} = \mathrm{f}(x, y)$ where $y=\mathrm{y}(t)$.
+
+$\mathrm{f}(x, y)$ is separable if $\mathrm{f}(x, y)$ can be expressed as $\mathrm{g}(x)\cdot \mathrm{h}(y)$:
+\begin{align}
+    &\dydx{y} = \mathrm{f}(x, y)=\mathrm{g}(x)\cdot \mathrm{h}(y) &\text{Multiply both sides by $\dx$}\\
+    &\dof{y} = \mathrm{f}(x, y)\dx=\mathrm{g}(x)\cdot \mathrm{h}(y)\cdot\dx &\\
+    &\dof{y} = \mathrm{g}(x)\cdot \mathrm{h}(y)\dx &\\
+    &\frac{1}{\mathrm{h}(y)}\dof{y} = \mathrm{g}(x)\dx &
+\end{align}
+which gives us:
+\[\int \frac{1}{\mathrm{h}(y)}\dof{y} = \int \mathrm{g}(x)\dx\]
+
+\end{document}
