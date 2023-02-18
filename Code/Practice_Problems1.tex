@@ -1,16 +1,22 @@
 \documentclass{article}
 
 % __Preamble__
-\usepackage{microtype, amsmath, physics, enumitem, etoolbox, mathtools}
+\usepackage{microtype, amsmath, physics, enumitem, etoolbox, mathtools, fancyhdr}
 \usepackage[letterpaper]{geometry}
 
-% __Changing Subequation format to number.number
-\renewcommand{\theparentequation}{\arabic{equation}}
-\renewcommand{\theequation}{\thesection.\arabic{equation}}
-\numberwithin{equation}{section}
-\renewcommand{\subequations}{\thesection.\arabic{equation}}
-\numberwithin{equation}{section}
+% __Changing page style__
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead{}     
+\fancyhead[R]{\leftmark}     
 
+
+% __Changing Subequation format to number.number
+\patchcmd{\subequations}
+{\theparentequation\alph{equation}}
+{\theparentequation.\arabic{equation}}{}{}
+
+% __Allows for (1.1.1) counting__
 \makeatletter
 \newcounter{parentsubequation}% Counter for ``parent equation''.
 \newenvironment{subsubequations}{
@@ -38,7 +44,9 @@
 \maketitle
 \newpage
 
+% ______Exponential Models______
 \section{Exponential Models}
+\begin{subequations}
 \textbf{900 grams} of a radioactive material is brought into a lab.
 The amount remaining after 4 days was 4/9 of what remained after 2 
 days. Let $\mathrm{N}(t)$ be the number of grams of radioactive material.
@@ -50,9 +58,7 @@ days. Let $\mathrm{N}(t)$ be the number of grams of radioactive material.
     \item How many days will it takes for only 1 gram to remain? 
 \end{enumerate}
 
-\subsection*{Part (a)}
-\begin{subequations}
-
+\subsection{(a)}
 \begin{subsubequations}
     The basic exponential model looks like this:
     \[ \mathrm{f}(t) = br^t \]
@@ -88,7 +94,7 @@ days. Let $\mathrm{N}(t)$ be the number of grams of radioactive material.
     \[ \boxed{\mathrm{N}(t) = 900\left(\frac{2}{3}\right)^{365t}} \]
 \end{subsubequations}
 
-\subsection*{Part (b)}
+\subsection{(b)}
 \begin{subsubequations}
     We can substitue 2 for $t$ to get our answer:
     \begin{align}
@@ -97,7 +103,7 @@ days. Let $\mathrm{N}(t)$ be the number of grams of radioactive material.
     Thus, \textbf{400 grams} of material remain after 2 days.
 \end{subsubequations}
 
-\subsection*{Part (c)}
+\subsection{(c)}
 \begin{subsubequations}
     The half-life is basically how much time it takes for the population to reach half of 
     its original size, thus we are just solving for time $t$ when $\mathrm{N}(t)=\frac{1}{2}b$:
@@ -118,7 +124,7 @@ days. Let $\mathrm{N}(t)$ be the number of grams of radioactive material.
     \end{align}
 \end{subsubequations}
 
-\subsection*{Part (d)}
+\subsection{(d)}
 \begin{subsubequations}
     Now similar to part (c), we need to solve for time $t$, but this time:
     \[ \mathrm{N}(t) = 1 \]
@@ -135,43 +141,43 @@ days. Let $\mathrm{N}(t)$ be the number of grams of radioactive material.
 
 \end{subequations}
 
+\newpage
+% ______Seperable Differential Equations________
 \section{Separable Differential Equations}
 \begin{subequations}
 Find the explicit solution to these differential equations 
 that satisfy the given initial condition:
-% \subsection*{(a)}
-% \begin{subequations}
-% {\Large \[ (1+x^2)y' = \frac{1}{y^2};\quad y(0) = 2 \]}
-% We want to rewrite this equation as:
-% \[ 
-%     \frac{1}{y}\,dy = x\,dx 
-%     \quad \text{or} \quad 
-%     \frac{1}{\mathrm{g}(y)}\,dy = \mathrm{h}(x)\,dx 
-% \]
-% Basically, one side is in terms of $y$ and the other is in terms of $x$.
-% \begin{align}
-%     &(1+x^2)y' = \frac{1}{y^2} \\
-%     &(1+x^2)\frac{dy}{dx} = \frac{1}{y^2} = \frac{(1+x^2)dy}{dx} = \frac{1}{y^2} \\
-%     \Rightarrow\: &y^2(1+x^2)dy = dx \\
-%     \Rightarrow\: &y^2\,dy = (1+x^2)^{-1}\,dx
-% \end{align}
-% Now to integrate:
-% \begin{align}
-%     &\int y^2\,dy = \int \frac{1}{1+x^2}\,dx \\
-%     &\frac{y^3}{3} + C = \arctan(x) + C \Longleftrightarrow \frac{1}{3}y^3 = \arctan(x) + C \\
-%     \Rightarrow\: &y^3 + C = 3\arctan(x) + C \\
-%     \Rightarrow\: &y = \sqrt[3]{3\arctan(x)} + C
-% \end{align}
-% Now to find $C$ such that the condition $y(0) = 2$ or $y = 2$ when $x = 0$ is satisfied:
-% \begin{align}
-%     &2 = \sqrt[3]{3\arctan(2)}+C \\
-%     \Rightarrow\: &C = 2-\sqrt[3]{3\arctan(x)}
-% \end{align}
-% \end{subequations}
-    
+
+\subsection*{(a)}
+\begin{subsubequations}
+    {\Large \[ (1+x^2)y' = \frac{1}{y^2};\quad y(0) = 2 \]}
+
+    \begin{alignat}{2}
+        (1+x^2)y' = \frac{1}{y^2}& &\implies\: &(1+x^2)\frac{dy}{dx} = \frac{1}{y^2} \\
+        &&\implies\:  &(1+x^2)dy = \frac{1}{y^2}dx \nonumber \\
+        &&\implies\:  &y^2(1+x^2)dy = dx \nonumber \\
+        &&\implies\:  &y^2\,dy = \frac{1}{1+x^2}\,dx \\
+        \intertext{Now to integrate both sides:}
+        \int y^2\,dy = \int \frac{1}{1+x^2}\,dx& &\implies\: &\frac{y^3}{3}+C = \arctan(x)+C \\
+        \intertext{We will assume that there is only one $C$:}
+        &&\implies\: &\frac{y^3}{3} = \arctan(x)+C \nonumber \\
+        &&\implies\: &y^3 = 3(\arctan(x)+C) \nonumber \\
+        &&\implies\: &y = \sqrt[3]{3(\arctan(x)+C)} 
+        \intertext{Now to solve for $C$ such that $y(0)=2$, in which $x=0$:}
+        2 = \sqrt[3]{3(\arctan(0)+C)}& &\implies\: &2^3 = 3(\arctan(2)+C) \\
+        &&\implies\: &8 = 3(\arctan(0)+C) \nonumber \\
+        &&\implies\: &\frac{8}{3} = \arctan(0)+C \nonumber \\
+        &&\implies\: &\frac{8}{3} = C
+    \end{alignat}
+    Thus, our equation is:
+    \[ \boxed{y = \sqrt[3]{3\arctan(x)+\frac{8}{3}}} \]
+
+\end{subsubequations}
+
+\newpage
 \subsection*{(b)}
 \begin{subsubequations}
-    {\large \[ x\,dy - (y + \sqrt{y})dx = 0\,;\quad y(1)=1 \]}    
+    {\Large\[x\,dy - (y + \sqrt{y})dx = 0\,;\quad y(1)=1\]}
     \begin{align}
         &x\,dy - (y + \sqrt{y})dx = 0 \\[0.5ex]
         \Rightarrow\: &x\,dy = (y + \sqrt{y})dx \\[0.5ex]
@@ -194,8 +200,7 @@ that satisfy the given initial condition:
         \intertext{We will get rid of the C on the left side since it is an 
         arbitrary constant, thus we will assume there is only one constant:}
         \Rightarrow\: &2\ln\abs{\sqrt{y}+1} = \ln\abs{x} + C \\[0.5ex]
-        \intertext{Raise both sides to the power of $e$ in order to cancel out 
-        $\ln$:}
+        \intertext{Raise $e$ to the power of both sides in order to cancel out $\ln$:}
         \Rightarrow\: &e^{2\ln\abs{\sqrt{y}+1}} = e^{\ln\abs{x} + C} \Rightarrow e^{2\ln\abs{\sqrt{y}+1}} = e^{\ln\abs{x}}\cdot e^C \\[0.5ex]
         \Rightarrow\: &(\sqrt{y}+1)^2 = x\cdot e^C \nonumber \\[0.5ex]
         \Rightarrow\: &\sqrt{y}+1 = \sqrt{x\cdot e^C} \nonumber \\[0.5ex]
