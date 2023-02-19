@@ -1,0 +1,109 @@
+\documentclass{article}
+
+% __Preamble__
+\usepackage{microtype, amsmath, physics, enumitem, etoolbox, mathtools, fancyhdr, nicefrac}
+\usepackage[letterpaper, top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+% __Changing page style__
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead{}     
+\fancyhead[R]{\leftmark}     
+\fancyfoot[C]{\hrule\vspace{1em}\thepage}
+
+
+% __Changing Subequation format to number.number
+\patchcmd{\subequations}
+{\theparentequation\alph{equation}}
+{\theparentequation.\arabic{equation}}{}{}
+
+% __Allows for (1.1.1) counting__
+\makeatletter
+\newcounter{parentsubequation}% Counter for ``parent equation''.
+\newenvironment{subsubequations}{
+  \refstepcounter{equation}
+  \protected@edef\theparentsubequation{\theequation}
+  \setcounter{parentsubequation}{\arabic{equation}}
+  \setcounter{equation}{0}
+  \def\theequation{\theparentsubequation.\arabic{equation}}
+  \ignorespaces
+}{
+  \setcounter{equation}{\arabic{parentsubequation}}
+  \ignorespacesafterend
+}
+\makeatother
+
+% __Load after changing subequation format to avoid conflict__
+\usepackage{hyperref}
+
+\title{Discussion Problems 2}
+\author{Laith Toom}
+\date{19/2/2023}
+
+\begin{document}
+\maketitle
+\newpage
+
+\section{Problem 1}
+\begin{subequations}
+{\Large \[ \int \cos^2(x)\sin^3(x)\,dx \]
+
+\begin{align}
+    \int \cos^2(x)\sin^3(x)\,dx &= \int \cos^2(x)\left[1-\cos^2(x)\right]\sin(x) \,dx
+    \intertext{\centering $u = \cos(x) \quad du = -\sin(x) \,dx \quad dx = \dfrac{-du}{\sin(x)}$}
+    &\Rightarrow \int u^2\left[1-u^2\right]\sin(x) \,\frac{-du}{\sin(x)} \\
+    &\Rightarrow -\int u^2\left[1-u^2\right] \,du \\
+    &\Rightarrow -\int u^2-u^4 \,du \\
+    &\Rightarrow -\left[\, \int u^2 \,du - \int u^4 \,du \,\right] \\
+    &\Rightarrow -\left[\, \frac{u^3}{3} - \frac{u^5}{5} \,\right]+C \\
+    &\Rightarrow -\left[\, \frac{5u^3 - 3u^5}{15} \,\right]+C \\
+    &\Rightarrow \frac{3u^5 - 5u^3}{15} + C \\
+    &\Rightarrow \boxed{\frac{3\cos^5(x) - 5\cos^3(x)}{15} + C}
+\end{align}
+}
+\end{subequations}
+
+\newpage
+\section{Problem 2}
+\begin{subequations}
+{\Large \[ \int \frac{\left[\log_5(x)\right]^9}{8x} \,dx \]
+
+\begin{align}
+    \int \frac{\left[\log_5(x)\right]^9}{8x} \,dx &= \int \frac{\left[\frac{\ln(x)}{\ln(5)}\right]^9}{8x} \,dx \\
+    &\Rightarrow \frac{1}{8}\int \frac{\left[\frac{\ln(x)}{\ln(5)}\right]^9}{x} \,dx \\    
+    &\Rightarrow \frac{1}{8}\int \frac{1}{x}\left[\frac{\ln(x)}{\ln(5)}\right]^9 \,dx \\   
+    &\Rightarrow \frac{1}{8}\int \frac{1}{x}\left[\frac{\ln^9(x)}{\ln^9(5)}\right] \,dx \\   
+    &\Rightarrow \frac{1}{8\ln^9(5)}\int \frac{1}{x}\ln^9(x) \,dx  
+    \intertext{\centering\LARGE $u = \ln(x) \quad du = \frac{1}{x}dx \quad dx = x\,du$}
+    &\Rightarrow \frac{1}{8\ln^9(5)}\int \frac{1}{x}u^9 \,x\,du \\
+    &\Rightarrow \frac{1}{8\ln^9(5)}\int u^9 \,du \\ 
+    &\Rightarrow \frac{1}{8\ln^9(5)} \left[\frac{u^{10}}{10}\right]+C \\  
+    &\Rightarrow \frac{1}{8\ln^9(5)} \left[\frac{\ln^{10}(x)}{10}\right]+C \\
+    &\Rightarrow \boxed{\frac{\ln^{10}(x)}{80\ln^9(5)}+C}
+\end{align}
+
+}
+\end{subequations}
+
+\newpage
+\section{Problem 3}
+\begin{subequations}
+{\Large \[ \int \frac{3x}{e^{\nicefrac{x}{5}}} \,dx \]
+
+\begin{align}
+    \int \frac{3x}{e^{\nicefrac{x}{5}}} \,dx &= 3\int \frac{x}{e^{\nicefrac{x}{5}}} \,dx \\
+    &\Rightarrow 3\int x\cdot e^{\nicefrac{-x}{5}} \,dx
+    \intertext{Integrating by parts where: \[ \int u(x)v'(x)\,dx = u(x)v(x) - \int u'(x)v(x)\,dx \]
+    $u(x) = x \quad v(x) = \int e^{\nicefrac{-x}{5}} = -5e^{\nicefrac{-x}{5}} \quad u'(x)=1 \quad v'(x) = e^{\nicefrac{-x}{5}}$}
+    \int x\cdot e^{\nicefrac{-x}{5}} &= \left[\, x\cdot-5e^{\nicefrac{-x}{5}} - \int 1e^{\nicefrac{-x}{5}}\,dx \,\right] \\
+    \int x\cdot e^{\nicefrac{-x}{5}} &= \left[\, -5xe^{\nicefrac{-x}{5}} - \int e^{\nicefrac{-x}{5}}\,dx \,\right] \\
+    \int x\cdot e^{\nicefrac{-x}{5}} &= \left[\, -5xe^{\nicefrac{-x}{5}} + 5e^{\nicefrac{-x}{5}}+C \,\right] \\
+    \int x\cdot e^{\nicefrac{-x}{5}} &= \, e^{\nicefrac{-x}{5}} \left(5-5x\right)+C \\
+    \intertext{Now that we have our integral, we bring back our coefficient of 3:}
+    \int \frac{3x}{e^{\nicefrac{x}{5}}} &= 3e^{\nicefrac{-x}{5}}\left(5-5x\right)+C \\
+    &= \boxed{\frac{3}{e^{\nicefrac{x}{5}}}\left(5-5x\right)+C}
+\end{align}
+}
+\end{subequations}
+
+\end{document}
