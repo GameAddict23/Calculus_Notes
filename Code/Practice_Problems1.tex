@@ -2,19 +2,20 @@
 
 % __Preamble__
 \usepackage{microtype, amsmath, physics, enumitem, etoolbox, mathtools, fancyhdr}
-\usepackage[letterpaper]{geometry}
+\usepackage[letterpaper, top=1in, bottom=1in, left=1in, right=1in]{geometry}
 
 % __Changing page style__
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead{}     
 \fancyhead[R]{\leftmark}     
+\fancyfoot[C]{\hrule\vspace{1em}\thepage}
 
 
 % __Changing Subequation format to number.number
 \patchcmd{\subequations}
 {\theparentequation\alph{equation}}
-{\theparentequation.\arabic{equation}}{}{}
+{\theparentequation.\alph{equation}}{}{}
 
 % __Allows for (1.1.1) counting__
 \makeatletter
@@ -24,7 +25,7 @@
   \protected@edef\theparentsubequation{\theequation}
   \setcounter{parentsubequation}{\arabic{equation}}
   \setcounter{equation}{0}
-  \def\theequation{\theparentsubequation.\arabic{equation}}
+  \def\theequation{\theparentsubequation\arabic{equation}}
   \ignorespaces
 }{
   \setcounter{equation}{\arabic{parentsubequation}}
@@ -220,6 +221,80 @@ that satisfy the given initial condition:
         \intertext{Thus, our answer is:}
         &\boxed{y = 4x-4\sqrt{x}+1} 
     \end{align}
+\end{subsubequations}
+
+\subsection*{(c)}
+\begin{subsubequations}
+    {\Large \[\frac{dy}{dx} = \frac{y\ln(y)}{1+x^2}\,;\quad y(0)=e^2\]}
+
+    \begin{alignat}{2}
+        \frac{dy}{dx} = \frac{y\ln(y)}{1+x^2}& &\implies\: &\frac{1}{y\ln(y)}dy = \frac{1}{1+x^2}dx \\
+        \intertext{Now we can integrate both sides:}
+        \int \frac{1}{y\ln(y)}dy = \int \frac{1}{1+x^2}dx& \label{eq3}
+        \intertext{Integrating left side:}
+        u = \ln(y) \quad du = \frac{1}{y}dx \quad dx = y\,du \nonumber \\
+        \int \frac{1}{y\ln(y)} dx& &\implies &\int \frac{1}{y\,u}y\,du \nonumber \\
+        &&\implies &\int \frac{1}{u}du \nonumber \\
+        &&\implies &\ln\abs{u} \implies \ln\abs{\ln(y)}
+        \intertext{Integrating right side:}
+        \int \frac{1}{1+x^2} = \arctan(x)+C
+        \intertext{Returning to equation \ref{eq3}:}
+        \ln\abs{\ln(y)} = \arctan(x)+C 
+        \intertext{Raise $e$ to the power of both sides to cancel out $\ln$:}
+        e^{\ln\abs{\ln(y)}}=e^{\arctan(x)+C}& &\implies &\ln(y) = e^{\arctan(x)+C} 
+        \intertext{Repeat:}
+        e^{\ln(y)}=e^{\left(e^{\arctan(x)+C}\right)}& &\implies &y = e^{\left(e^{\arctan(x)+C}\right)} \label{eq4}
+        \intertext{Now to solve for $C$ such that $y(0)=e^2$:}
+        e^2 = e^{\left(e^{\arctan(0)+C}\right)}& &\implies &e^2 = e^{\left(e^C\right)}
+        \intertext{Since the bases are equal, we can assume that the exponents must also be equal, thus:}
+        2 = e^C& &\implies &\ln(2) = C 
+        \intertext{Thus, going back to equation \ref{eq4}, our equation is:}
+        y = e^{\left(e^{\arctan(x)+\ln(2)}\right)}& &\implies &y = e^{\left(e^{\arctan(x)}e^{ln(2)}\right)} \nonumber \\
+        &&\implies &\boxed{y = e^{\left(2e^{\arctan(x)}\right)}}
+    \end{alignat}
+\end{subsubequations}
+
+\end{subequations}
+
+\newpage
+\section{Integration by Substituion}
+\begin{subequations}
+    
+\subsection*{(a)}
+\begin{subsubequations}
+    {\Large \[ \int \frac{\left[\log_3(x)\right]^2}{x}\,dx \]}    
+
+    \begin{alignat}{3}
+        \int \frac{\left[\log_3(x)\right]^2}{x}\,dx& &\implies &\int \frac{1}{x}\left[\frac{\ln(x)}{\ln(3)}\right]^2\,dx \\[0.5ex]
+        u = \ln(x) \quad du = \frac{1}{x}dx \quad dx = x\,du \\[0.5ex]
+        &&\implies &\int \frac{1}{x}\left[\frac{u}{\ln(3)}\right]^2 x\,du \nonumber \\[0.5ex]
+        &&\implies &\int \left[\frac{u}{\ln(3)}\right]^2 \,du \nonumber \\[0.5ex]
+        &&\implies &\int \frac{u^2}{\ln^2(3)} \,du \nonumber \\[0.5ex]
+        &&\implies &\frac{1}{\ln^2(3)}\int u^2 \,du \nonumber \\[0.5ex]
+        &&\implies &\frac{1}{\ln^2(3)}\left[\frac{1}{3}u^3\right]+C \nonumber \\[0.5ex]
+        &&\implies &\frac{u^3}{3\ln^2(3)}+C \nonumber \\[0.5ex]
+        &&\implies &\boxed{\frac{\ln^3(x)}{3\ln^2(3)}+C}
+    \end{alignat}
+
+\end{subsubequations}
+
+\subsection*{(c)}
+\begin{subsubequations}
+    {\Large \[ \int 5x^{11} \sec(x^{12})\tan(x^{12})\,dx \]}    
+
+    \begin{alignat}{2}
+        & & & \nonumber \\
+        % &&&u = \sec(x^{12}) \quad du = 12x^{11}\sec(x^{12})\tan(x^{12})dx \quad dx = \frac{du}{12x^{11}\sec(x^{12})\tan(x^{12})} \\[0.5ex]
+        % &&\implies &\int 5x^{11}u\tan(x^{12})\frac{du}{12x^{11}\sec(x^{12})\tan(x^{12})} \\[0.5ex]
+        % &&\implies &\frac{5}{12}\int \frac{u}{\sec(x^{12})}\,du \\[0.5ex]
+        % &&\implies &\frac{5}{12}\int \frac{u}{\left(\dfrac{1}{\cos(x^{12})}\right)}\,du \\[0.5ex]
+        % &&\implies &\frac{5}{12}\int u\cos(x^{12}) \,du \\[0.5ex]
+        &&&u = x^{12} \quad du = 12x^{11}dx \quad dx = \frac{du}{12x^{11}} \\
+        &&\implies &\int 5x^{11}\sec(u)\tan(u) \,\frac{du}{12x^{11}} \\
+        &&\implies &\frac{5}{12}\int \sec(u)\tan(u) \,du \\
+        &&\implies &\frac{5}{12}\left[\sec(u)\right]+C \\
+        &&\implies &\boxed{\frac{5}{12}\sec(x^{12})+C} \\
+    \end{alignat}
 \end{subsubequations}
 
 \end{subequations}
