@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{etoolbox}
+\usepackage{pgfplots, relsize}
+\usetikzlibrary{calc}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=newest}
+
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage[letterpaper, bottom=100pt]{geometry}
+\usepackage{physics}
+\usepackage{MnSymbol}
+\usepackage{float}
+
+\newcommand{\diff}[1]{\frac{\mathrm{d}#1}{\mathrm{d}t}}
+\newcommand{\tvert}{\biggr\rvert_{t_1}^{t_2}}
+\newcommand{\derv}{\frac{\mathrm{d}}{\mathrm{d}t}}
+\newcommand{\ddx}{\frac{\mathrm{d}}{\mathrm{d}x}}
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\dof}[1]{\mathrm{d}#1}
+\newcommand{\dydx}[1]{\frac{\mathrm{d}#1}{\dx}}
+
+\patchcmd\subequations
+ {\theparentequation\alph{equation}}
+ {\subequationsformat}
+ {}{}
+
+\newcommand{\subequationsformat}{\theparentequation.\arabic{equation}}
+
+\author{Laith}
+\title{Exponential Change and Separable Differential Equations}
+\date{1/30/2023}
+
+\begin{document}
+\maketitle
+
+\end{document}

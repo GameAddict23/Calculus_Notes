@@ -1,0 +1,115 @@
+\documentclass{article}
+
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{etoolbox}
+\usepackage{pgfplots, relsize}
+\usetikzlibrary{calc}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=newest}
+
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage[letterpaper, bottom=100pt]{geometry}
+\usepackage{physics}
+\usepackage{MnSymbol}
+\usepackage{float}
+
+\newcommand{\diff}[1]{\frac{\mathrm{d}#1}{\mathrm{d}t}}
+\newcommand{\tvert}{\biggr\rvert_{t_1}^{t_2}}
+\newcommand{\derv}{\frac{\mathrm{d}}{\mathrm{d}t}}
+\newcommand{\ddx}{\frac{\mathrm{d}}{\mathrm{d}x}}
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\dof}[1]{\mathrm{d}#1}
+\newcommand{\dydx}[1]{\frac{\mathrm{d}#1}{\dx}}
+
+\patchcmd\subequations
+ {\theparentequation\alph{equation}}
+ {\subequationsformat}
+ {}{}
+
+\newcommand{\subequationsformat}{\theparentequation.\arabic{equation}}
+
+\author{Laith}
+\title{Hyperbolic Functions}
+\date{1/30/2023}
+
+\begin{document}
+\maketitle
+
+\paragraph{Def:} The hyperbolic sine and cosine functions are 
+defined by the equations:
+\begin{align}
+    &\sinh(x) = \frac{e^x-e^{-x}}{2} \\
+    &\cosh(x)=\frac{e^x+e^{-x}}{2} \\
+    &\tanh(x) = \frac{e^x-e^{-x}}{e^x+e^{-x}}=\frac{\sinh(x)}{\cosh(x)}
+\end{align}
+\newpage
+Graph of some hyperbolic function:
+\begin{figure}[H]
+\begin{tikzpicture}
+    \begin{axis}
+        [
+            axis lines = center,
+            no marks,
+            xmin=-10, xmax=10,
+            ymin=-10, ymax=10,
+            xlabel = $x$,
+            xlabel style={below right},
+            ylabel = $y$,
+            ylabel style={above left},
+            legend pos=outer north east,
+            smooth,
+        ]
+        \addplot[red, dotted] {e^x};
+        \addlegendentry{$y=e^x$}
+        \addplot[blue] {sinh(x)};
+        \addlegendentry{$y=\sinh(x)$}
+    \end{axis}
+\end{tikzpicture}
+\hrule
+\begin{tikzpicture}
+    \begin{axis}
+        [
+            axis lines = center,
+            no marks,
+            xmin=-10, xmax=10,
+            ymin=-10, ymax=10,
+            xlabel = $x$,
+            xlabel style={below right},
+            ylabel = $y$,
+            ylabel style={above left},
+            legend pos=outer north east,
+            smooth,
+        ]
+        \addplot[red, dotted] {(e^x)/2};
+        \addlegendentry{$y=\frac{e^x}{2}$}
+        \addplot[red, dotted] {(e^(-x))/2};
+        \addlegendentry{$y=\frac{e^{-x}}{2}$}
+        \addplot[blue] {cosh(x)};
+        \addlegendentry{$y=\cosh(x)$}
+    \end{axis}
+\end{tikzpicture}
+\end{figure}
+\begin{align}
+    &\coth(x) = \frac{1}{\tanh(x)}=\frac{\cosh(x)}{\sinh(x)}=\frac{e^x+e^{-x}}{e^x-e^{-x}} \\
+    &\sech(x) = \frac{1}{\cosh(x)}=\frac{2}{e^x+e^{-x}} \\
+    &\csch(x) = \frac{1}{\sinh(x)}=\frac{2}{e^x-e^{-x}}
+\end{align}
+
+\begin{enumerate}
+    \item $\cosh^2(x)-\sinh^2(x)=1$
+    \item $\cosh^2+\sin^2(x)=\cosh(2x)$
+\end{enumerate}
+
+Proof for identity 2:
+\begin{align}
+    \cosh(x)=\frac{e^x+e^{-x}}{2},\, \sinh(x)&=\frac{e^x-e^{-x}}{2} \\
+    \cosh^2(x)+\sinh^2(x)&=(\frac{e^x+e^{-x}}{2})+(\frac{e^x-e^{-x}}{2}) \\
+    &= \frac{e^{2x}+2e^{x}e^{-x}+e^{-2x}}{4}+\frac{e^{2x}-2e^{x}e^{-x}+e^{-2x}}{4} \\
+    &= \frac{2e^{2x}+2e^{-2x}}{4} \\
+    &= \frac{e^{2x}+e^{-2x}}{2}=\cosh(2x)
+\end{align}
+
+\end{document}

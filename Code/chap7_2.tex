@@ -23,6 +23,7 @@
 \newcommand{\dx}{\mathrm{d}x}
 \newcommand{\dof}[1]{\mathrm{d}#1}
 \newcommand{\dydx}[1]{\frac{\mathrm{d}#1}{\dx}}
+% \newcommand{\dy_dx}[1]{\frac{\mathrm{d}#1}{\dx}}
 
 \patchcmd\subequations
  {\theparentequation\alph{equation}}
@@ -92,4 +93,90 @@ $\mathrm{f}(x, y)$ is separable if $\mathrm{f}(x, y)$ can be expressed as $\math
 which gives us:
 \[\int \frac{1}{\mathrm{h}(y)}\dof{y} = \int \mathrm{g}(x)\dx\]
 
+\subsection{Examples}
+\paragraph{\#9)} \[2\sqrt{xy}\dydx{y}=1\,;\,x,\,y > 0\]
+\begin{subequations}
+% \begin{gather}
+%     \dydx{y} = \frac{1}{2\sqrt{xy}} \\ 
+% \end{gather}
+\hrule
+\paragraph{\#20)}
+\[\dydx{y} = xy+3x-2y-6\]
+\begin{gather}
+    \dydx{y} = x(y+3)-2(y+3) \\ 
+    \dydx{y} = (x-2)(y+3) \\ 
+    \dydx{y}\cdot{\dx} = (x-2)(y+3)\cdot{\dx} \\ 
+    dy = (x-2)(y+3)\cdot{\dx} \\ 
+    \frac{1}{y+3}dy = (x-2)\cdot{\dx} \\ 
+    \int \frac{1}{y+3}\,dy = \int (x-2)\,\dx \\ 
+    \boxed{\ln{\abs{y+3}} = \frac{1}{2}(x-2)^2+C}
+\end{gather}
+
+\hrule
+\newpage
+\paragraph{\#16)}
+\[\sec{x}\dydx{y}=e^{y+\sin{x}}\]
+\begin{gather}
+   \frac{1}{\cos{x}}\dydx{y}=e^{y+\sin{x}} \\ 
+   \Rightarrow \dydx{y} = \cos{x}\cdot e^{y+\sin{x}} \\
+   \dydx{y} = \cos{x}(e^y)(e^{\sin{x}}) \\
+   \Rightarrow \frac{1}{e^y}\dydx{y} = \cos{x}(e^{\sin{x}}) \\
+   \frac{1}{e^y}\dydx{y} \cdot \dx = \cos{x}(e^{\sin{x}})\dx \\
+   \frac{1}{e^y}\,dy = \cos{x}(e^{\sin{x}})\dx \\
+   \int \frac{1}{e^y}\,dy = \int \cos{x}(e^{\sin{x}})\,\dx \\
+   \int e^{-y}\,dy = \int (e^{\sin{x}})\cos{x}\,\dx \\
+   \text{$u = -y$ $du = -dy \rightarrow -du = dy$ $\biggr\rvert$ $u = \sin{x}$ $du = \cos{x}dx$} \\
+   \int e^{u}\,du = \int e^{u}\,du \\
+   -e^{u} = e^{u}+k \\
+   -e^{-y} = e^{\sin{x}}+k \\
+\end{gather}
+\end{subequations}
+\hrule
+
+\paragraph{\#} Show that each function $y=f(x)$ is a solution of the indicated DE.
+
+\[2y'+3y=e^{-x}\]
+\begin{gather*}
+        a)y=e^{-x} \\
+        b)y=e^{-x}+e^{\frac{-3}{2}x} \\
+\end{gather*}
+\hrule
+\newpage
+
+\paragraph*{Example} In a certain region, the population, $P(t)$, in
+thousand of people $t$ year after census begin is approximated using 
+an exponential growth model. The initial census showed $P_0=90$ and 
+the population 2 years later was 120.
+\begin{enumerate}[label=\alph*)]
+    \item Find a formula for $P(t)$.
+\end{enumerate} 
+\begin{subequations}
+\begin{gather}
+    P(t) = P_0e^{kt}=P_0{(e^k)}^t \\
+    P(0)=90,000 \\
+    \Rightarrow P(t)=90,000e^{kt} \\
+    \text{Two years later $t=2$ $P(2)=120,000$} \\
+    120,000=90,000e^{kt} \\
+    12 = 9e^{k\cdot 2} \\
+    \frac{12}{9} = {(e^{k})}^2 \\
+    \sqrt{\frac{12}{9}} = (e^{k}) \\
+    e^k = \frac{2}{\sqrt{3}} \\
+    P(t) = 90,000(\frac{2}{\sqrt3})^t
+\end{gather}
+
+\begin{enumerate}[label=\alph*)]
+    \item Find the population after 4 years $\Rightarrow P(4)=90,000(\frac{2}{\sqrt{3}})^4$
+\end{enumerate}
+\begin{gather}
+    P(4) = 90,000{((\frac{2}{\sqrt{3}})^2)}^2 \\
+    P(4) = 90,000(\frac{4}{3})^2 \\
+    P(4) = 90,000(\frac{16}{9}) \\
+    P(4) = 10,000(16) = 160,000 \\
+\end{gather}
+
+\begin{enumerate}[label=\alph*)]
+    \item 
+\end{enumerate}
+
+\end{subequations}
 \end{document}
