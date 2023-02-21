@@ -1,0 +1,161 @@
+\documentclass{article}
+
+\usepackage[letterpaper, top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{amsmath, physics, enumitem, microtype, nicefrac, fancyhdr}
+
+\pagestyle{fancy}
+
+\title{Trigonometric Integrals and Identities}
+\author{Laith Toom}
+\date{20/2/2023}
+
+\begin{document}
+\maketitle
+\newpage
+
+\section{Useful Identities}
+Here are some useful identities:
+
+\newcounter{identity}
+\setcounter{identity}{0}
+\newcommand{\newidentity}{\refstepcounter{identity}\arabic{identity}}
+\renewcommand{\arraystretch}{3}
+\begin{center}
+    \large
+    \begin{tabular}{c l}
+        (\newidentity) & \(\displaystyle \csc^2(x)-\cot^2(x)=1 \)                             \\
+        (\newidentity) & \(\displaystyle \sec^2(x)-\tan^2(x)=1 \)                             \\
+        (\newidentity) & \(\displaystyle \cos^2(x)+\sin^2(x)=1 \)                             \\                       
+        (\newidentity) & \(\displaystyle \sin(x \pm y) = \sin(x)\cos(y) \pm \sin(y)\cos(x) \) \\
+        (\newidentity) & \(\displaystyle \cos(x \pm y) = \cos(x)\cos(y) \mp \sin(x)\sin(y) \) \\
+        (\newidentity) & \(\displaystyle \cos(2x) = \cos^2(x) - \sin^2(x) \)                  \\
+        (\newidentity) & \(\displaystyle \cos^2(x) = \frac{1+\cos(2x)}{2} \)                  \\
+        (\newidentity) & \(\displaystyle \sin^2(x) = \frac{1-\cos(2x)}{2} \)                  \\
+    \end{tabular}
+\end{center}
+
+\subsection{Derivations}
+I will only be deriving equations 6, 7, and 8:
+
+\subsubsection{Equation 6}
+\begin{subequations}
+    Equation 6 can be derived from equation 5:
+    \begin{align}
+        \cos(x+x) &= \cos(x)\cos(x) - \sin(x)\sin(x) \\
+        \cos(2x)  &= \cos^2(x) - \sin^2(x)
+    \end{align}
+    \[ \boxed{ \cos(2x)= \cos^2(x) - \sin^2(x) } \]
+\end{subequations}
+
+\subsubsection{Equation 7}
+\begin{subequations}
+    Equation 7 can be derived from equation 6:
+    \begin{align}
+        \cos(2x) &= \cos^2(x) - \sin^2(x)
+        \intertext{Using equation 3, we find that $\sin^2(x) = 1 - \cos^2(x)$:}
+        \Rightarrow \cos(2x) &= \cos^2(x) - (1 - \cos^2(x)) \\
+        \Rightarrow \cos(2x) &= \cos^2(x) - 1 + \cos^2(x) \\
+                             &= 2\cos^2(x)-1 \nonumber \\
+        \Rightarrow \cos(2x)+1 &= 2\cos^2(x) \\
+        \Rightarrow \frac{\cos(2x)+1}{2} &= \cos^2(x)
+    \end{align}
+    \[ \boxed{ \cos^2(x)=\frac{1+\cos(2x)}{2} } \]
+\end{subequations}
+
+\subsubsection{Equation 8}
+\begin{subequations}
+    Equation 8 can be derived from equation 6:
+    \begin{align}
+        \cos(2x) &= \cos^2(x) - \sin^2(x)
+        \intertext{Using equation 3, we find that $\cos^2(x) = 1 - \sin^2(x)$:}
+        \Rightarrow \cos(2x) &= (1 - \sin^2(x)) - \sin^2(x) \\
+        \Rightarrow \cos(2x) &= 1 - 2\sin^2(x) \\
+        \Rightarrow \cos(2x)-1 &= -2\sin^2(x) \\
+        \Rightarrow \frac{\cos(2x)-1}{-2} &= \sin^2(x)
+        \Rightarrow \frac{-\cos(2x)+1}{2} = \sin^2(x)
+    \end{align}
+    \[ \boxed{ \sin^2(x)=\frac{1-\cos(2x)}{2} } \]
+\end{subequations}
+
+\newpage
+\section{Trig Integrals}
+Using the identites, we can solve quite a few integrals:
+
+\subsection{Example 1}
+\[ \int \cos^2(x) \sin^3(x) \,dx \]
+There are multiple ways we can rewrite this expression using identites, but 
+the goal is to rewrite it in a way that offers a good substituion $u$:
+\begin{subequations}
+    \begin{align}
+        \implies \int \cos^2(x) \sin^2(x) \sin(x) \,dx &= \int \cos^2(x)\left(1-\cos^2(x)\right)\sin(x) \,dx
+        \intertext{Seeing that we have $\sin(x)$ as the only other function, that leaves us with the 
+        substituion $u=\cos(x)$ since $du=-\sin(x)\,dx$:} 
+        \implies \int u^2\left(1-u^2\right)\sin(x)\,\frac{du}{-\sin(x)} &= \int u^2(1-u^2)(-1) \,du \\
+                                                                        &= -\int u^2(1-u^2) \,du \\
+                                                                        &= -\int (u^2-u^4) \,du \\
+                                                                        &= -\left[\int u^2 \,du - \int u^4 \,du \right] \\
+                                                                        &= -\left[\frac{u^3}{3} - \frac{u^5}{5} \right] + C \\
+                                                                        &= \frac{u^5}{3} - \frac{u^3}{5} + C \\
+                                                                        &= \frac{\cos^5(x)}{3} - \frac{\cos^3(x)}{5} + C
+    \end{align}
+    \[ \boxed{ \int \cos^2(x) \sin^3(x) \,dx = \frac{\cos^5(x)}{5} - \frac{\cos^3(x)}{3} + C } \]
+\end{subequations}
+
+\subsection{Example 2}
+\[ \int \sin^2(6x) \,dx \]
+We could use the identity:
+\[ \sin^2(a) = \frac{1-\cos(2a)}{2} \]
+where $a=6x.$
+\begin{subequations}
+    \begin{align}
+        \implies \int \frac{1-\cos(2(6x))}{2} \,dx &= \int \frac{1-\cos(12x)}{2} \,dx \\
+                                                   &= \frac{1}{2}\int 1-\cos(12x) \,dx \\
+                                                   &= \frac{1}{2}\left[\int 1 \,dx - \int \cos(12x) \,dx \right]
+        \intertext
+        {
+        Integrating $\cos(12x)$:
+        \[ u = 12x \qquad du = 12\,dx \qquad dx = \frac{1}{12}du\]
+        \begin{align*}
+            \implies \int \cos(u) \frac{1}{12}\,du &= \frac{1}{12} \int \cos(u) \,du \\[1ex]
+                                                   &= \frac{1}{12} \sin(u) + C \\[1ex]
+                                                   &= \frac{1}{12} \sin(12x) + C
+        \end{align*}
+        }
+        \frac{1}{2}\left[\int 1 \,dx - \int \cos(12x) \,dx \right] 
+                                                   &= \frac{1}{2}\left[x - \frac{1}{12}\sin(12x) \right]+C \\
+                                                   &= \frac{x}{2} - \frac{\sin(12x)}{24} + C
+    \end{align}
+    \[ \boxed{ \int \sin^2(6x) \,dx = \frac{x}{2} - \frac{\sin(12x)}{24} + C } \]
+\end{subequations}
+
+\subsubsection{Proof}
+We can prove that:
+\[ \int \sin^2(ax) \,dx = \frac{x}{2} - \frac{\sin(2ax)}{4a} + C \]
+\begin{subequations}
+    \begin{align}
+        \int \sin^2(ax)\,dx &= \int \frac{1-\cos(2ax)}{2} \\
+                            &= \frac{1}{2}\int 1-\cos(2ax) \\
+                            &= \frac{1}{2}\left[\int 1 \,dx - \int \cos(2ax) \,dx \right]
+        \intertext
+        {
+        Integrating $\cos(2ax)$:
+        \[ u=2ax \qquad du = 2a\,dx \qquad dx = \frac{1}{2a}\,du \]
+        $2a$ is treated is a single constant.
+        \begin{align*}
+            \implies \int \cos(2ax) \,dx &= \int \cos(u) \frac{1}{2a}\,du \\[1ex]
+                                         &= \frac{1}{2a} \int \cos(u) \,du \\[1ex]
+                                         &= \frac{1}{2a} \sin(u) + C \\[1ex]
+                                         &= \frac{1}{2a} \sin(2ax) + C
+        \end{align*}
+        }
+        \frac{1}{2}\left[\int 1 \,dx - \int \cos(2ax) \,dx \right] 
+                                &= \frac{1}{2} \left[ x - \frac{1}{2a}\sin(2ax) \right] + C \\
+                                &= \frac{x}{2} - \frac{\sin(2ax)}{4a} + C \\
+    \end{align}
+    Thus,
+    \[ \boxed{ \int \sin^2(ax) \,dx = \frac{x}{2} - \frac{\sin(2ax)}{4a} + C } \]
+\end{subequations}
+
+
+
+\end{document}
