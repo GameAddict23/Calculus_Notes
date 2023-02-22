@@ -278,23 +278,103 @@ that satisfy the given initial condition:
 
 \end{subsubequations}
 
+\subsection*{(b)}
+\begin{subsubequations}
+    {\Large \[ \int \frac{\left[ 2+\log_3(5x+2) \right]^5}{15x+6} \,dx \]}
+    \[ u = 5x+2 \qquad du = 5\,dx \qquad dx = \frac{1}{5}\,du \]
+    \begin{align}
+        &\implies \int \frac{\left[ 2+\log_3(u) \right]^5}{3u}\cdot\frac{1}{5}\,du \\[1ex]
+        &= \frac{1}{15} \int \frac{\left[2+\log_3(u)\right]^5}{u} \,du
+    \end{align}
+    \[ v = 2+\log_3(u) = 2+\frac{\ln(u)}{\ln(3)} \qquad dv = \frac{1}{\ln(3)} \cdot \frac{1}{u} \,du \qquad du = \ln(3)u\,dv \]
+    \begin{align}
+        &\implies \frac{1}{15} \int \frac{v^5}{u} \ln(3)u\,dv \\[1ex]
+        &= \frac{\ln(3)}{15} \int v^5 \,dv \\[1ex]
+        &= \frac{\ln(3)}{15} \cdot \frac{v^6}{6} + C \\[1ex]
+        &= \frac{\ln(3)v^6}{80} + C \\[1ex]
+        &= \boxed{ \frac{\ln(3)\left[2+\log_3(5x+2)\right]^6}{90} + C }
+    \end{align}
+\end{subsubequations}
+
 \subsection*{(c)}
 \begin{subsubequations}
     {\Large \[ \int 5x^{11} \sec(x^{12})\tan(x^{12})\,dx \]}    
 
     \begin{alignat}{2}
         & & & \nonumber \\
-        % &&&u = \sec(x^{12}) \quad du = 12x^{11}\sec(x^{12})\tan(x^{12})dx \quad dx = \frac{du}{12x^{11}\sec(x^{12})\tan(x^{12})} \\[0.5ex]
-        % &&\implies &\int 5x^{11}u\tan(x^{12})\frac{du}{12x^{11}\sec(x^{12})\tan(x^{12})} \\[0.5ex]
-        % &&\implies &\frac{5}{12}\int \frac{u}{\sec(x^{12})}\,du \\[0.5ex]
-        % &&\implies &\frac{5}{12}\int \frac{u}{\left(\dfrac{1}{\cos(x^{12})}\right)}\,du \\[0.5ex]
-        % &&\implies &\frac{5}{12}\int u\cos(x^{12}) \,du \\[0.5ex]
         &&&u = x^{12} \quad du = 12x^{11}dx \quad dx = \frac{du}{12x^{11}} \\
         &&\implies &\int 5x^{11}\sec(u)\tan(u) \,\frac{du}{12x^{11}} \\
         &&\implies &\frac{5}{12}\int \sec(u)\tan(u) \,du \\
         &&\implies &\frac{5}{12}\left[\sec(u)\right]+C \\
-        &&\implies &\boxed{\frac{5}{12}\sec(x^{12})+C} \\
+        &&\implies &\boxed{\frac{5}{12}\sec(x^{12})+C}
     \end{alignat}
+\end{subsubequations}
+
+\subsection*{(d)}
+\begin{subsubequations}
+    {\Large \[ \int \frac{1}{\sqrt{x}\,e^{-\sqrt{x}}}\sec^2(1+\sqrt{x}) \,dx \]}
+    \[ u = \sqrt{x} \qquad du = \frac{1}{2\sqrt{x}}\,dx \qquad dx = 2\sqrt{x}\,du = 2u\,du \]
+    \begin{align}
+        \implies &\int \frac{1}{ue^{-u}} \sec^2(1+u) \,2u\,du \\[1ex] 
+        \implies &2\int \frac{1}{e^{-u}} \sec^2(1+u) \,du \\[1ex] 
+        \implies &2\int e^u \sec^2(1+u) \,du \\[1ex] 
+    \end{align}
+    Now to do integration by parts:
+    \[ v = e^u \qquad dv = e^u \qquad w = \int \sec^2(1+u) = \tan(1+u) \]
+    \begin{align}
+        \implies &e^u\tan(1+u) - \int e^u\sec^2(1+u) \,du
+    \end{align}
+    Let:
+    \[ I = \int e^u \sec^2(1+u) \]
+    \begin{align}
+        I &= e^u\tan(1+u) - I \\[1ex]
+        2I &= e^u\tan(1+u) \\[1ex]
+        I &= \frac{1}{2}e^u\tan(1+u) \\[1ex]
+    \end{align}
+    Returning back to our integral:
+    \begin{align}
+        \int e^u\sec^2(1+u)\,du &= \frac{1}{2}e^u\tan(1+u) \\[1ex]
+        \intertext{Bring back our coefficient of 2:}
+        2\int e^u\sec^2(1+u)\,du &= 2\left(\frac{1}{2}e^u\tan(1+u)\right) \\
+        2\int e^u\sec^2(1+u)\,du &= e^u\tan(1+u)
+    \end{align}
+    Thus,
+    \begin{align}
+        \int \frac{1}{\sqrt{x}\,e^{-\sqrt{x}}}\sec^2(1+\sqrt{x})\,dx &= e^u\tan(1+u) + C \\[1ex]
+                                                                     &= e^{\sqrt{x}}\tan(1+\sqrt{x}) + C
+    \end{align}
+    \[ \boxed{ e^{\sqrt{x}}\tan(1+\sqrt{x}) + C} \]
+    % \[ u = 1+\sqrt{x} \qquad du = \frac{1}{2\sqrt{x}}\,dx \qquad dx = 2\sqrt{x}\,du \]
+    % \begin{align}
+    %     &\implies \int \frac{1}{\sqrt{x}\,e^{-\sqrt{x}}} \sec^2(u) \, 2\sqrt{x}\,du \\[1ex]
+    %     &\implies 2\int \frac{1}{e^{-\sqrt{x}}} \sec^2(u) \,du \\[1ex]
+    %     &\implies 2\int e^{\sqrt{x}} \sec^2(u) \,du \\[1ex]
+    % \end{align}
+    % \[ 
+    %     v = e^{\sqrt{x}} \qquad 
+    %     dv = \frac{1}{2\sqrt{x}}e^{\sqrt{x}} \qquad 
+    %     w = \int \sec^2(u) \,du = \tan(u) \qquad 
+    %     dw = \sec^2(u)
+    % \]
+    % \begin{align}
+    %     \implies \int e^{\sqrt{x}} \sec^2(u) \,du = e^{\sqrt{x}} \tan(u) - \int \frac{1}{2\sqrt{x}}e^{\sqrt{x}} \tan(u) \,du
+    % \end{align}
+    % \begin{align}
+    %     &\Rightarrow \int \frac{1}{u\,e^{-u}}\sec^2(1+u) u\,du \\
+    %     &= \int e^u \sec^2(1+u) \,du
+    % \end{align}
+    % Now to integrate by parts:
+    % \[ v = e^u \quad dv = e^u \quad w = \int \sec^2(1+u) \,du = \tan(1+u) \quad dw = \sec^2(1+u)\]
+    % \begin{align}
+    %     &\Rightarrow e^u\tan(1+u) - \int e^u\sec^2(1+u) \,du \\[1ex]
+    %     I &= \int e^u\sec^2(1+u) \,du \\[1ex]
+    %     \implies I &= e^u\tan(1+u)-I \nonumber \\ 
+    %     &\implies 2I = e^u\tan(1+u) \nonumber \\
+    %     &\implies I = \frac{1}{2}e^u\tan(1+u)
+    %     \intertext{Thus,}
+    %     \int &e^u\sec^2(1+u) \,du = \frac{1}{2}e^u\tan(1+u) \\
+    %     \int &e^\sqrt{x} \sec^2{1+\sqrt{x}} \,du 
+    % \end{align}
 \end{subsubequations}
 
 \end{subequations}
