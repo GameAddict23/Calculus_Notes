@@ -1,0 +1,34 @@
+\documentclass{article}
+
+\usepackage[letterpaper, top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{amsmath}
+
+\title{\textbf{Numerical Integration:}\\Using Area Formulas to Integrate Non-Elementary Functions}
+\author{Laith Toom}
+\date{3/10/2023}
+
+\begin{document}
+\maketitle
+\newpage
+
+There are some functions that we cannot integrate with 
+the techiques we have used thus far, so we can just use 
+area formulas to approximate the area under the curve.
+We already touched upon this with \textbf{Reimann Sums}:
+\[ \sum_{i=1}^n f(x_i)\Delta x_i \text{\quad where \quad} \Delta x_i = \frac{x_n-x_1}{n} \]
+A more precise method of approximation would be to use \textbf{Trapezoidal Sums}.
+Instead of using the area of rectangles, we use the area of trapezoids: 
+\[ \text{Area of a Trapezoid:\quad} \frac{1}{2}(a+b)h \]
+As a series, we get:
+\begin{subequations}
+\begin{gather}
+    \sum_{i=1}^n \frac{1}{2}\Delta x_i(f(x_i)+f(x_{i+1})) \\
+    \frac{1}{2}\sum_{i=1}^{n} \Delta x_i(f(x_i)+f(x_{i+1}))
+    \intertext{Since the next terms will be $x_{i+1}$ and $x_{i+2}$, in which there will be 
+    doubles of x-values between $x_i$ and $x_n$ inclusive, we will get a formula:}
+    \boxed{\frac{1}{2}\Delta x_i (f(x_i) + 2f(x_{i+1}) + \cdots + 2f(x_{n-1}) + f(x_n))}
+\end{gather}
+\end{subequations}
+
+
+\end{document}
