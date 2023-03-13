@@ -1,0 +1,202 @@
+\documentclass[12pt]{article}
+
+\usepackage[letterpaper, top=1in, left=1in, right=1in, bottom=1in]{geometry}
+\usepackage{amsmath, physics, microtype, fancyhdr, hyperref, bigints, polynom}
+
+\pagestyle{fancy}
+
+\title{\textbf{Partial Fractions:}\\Decomposing Rational Functions Into Fractions in Order
+to Integrate}
+\author{Laith Toom}
+\date{3/2/2023}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Breaking down rational functions, a polynomial over a ploynomial, results in partial fractions:
+\[ \frac{3x-9}{x^2-6x+9} = \frac{3x-9}{(x-3)^2} = \frac{1}{x-3} + \frac{2}{x-3} \]
+where
+\[1(x-3) + 2(x-3) = 3x-9 \text{\qquad and\qquad} (x-3) \cdot (x-3) = x^2-6x+9 \]
+
+\bigskip
+
+\noindent We can write this in general terms:
+\[ \frac{C}{\mathrm{f}(x)} = \frac{A}{\mathrm{g}(x)} + \frac{B}{\mathrm{h}(x)} \]
+where 
+\[ A\cdot\mathrm{h}(x) + B\cdot\mathrm{g}(x) = C \text{\qquad and \qquad} \mathrm{g}(x)\mathrm{h}(x) = \mathrm{f}(x) \]
+
+\subsection{Integration}
+Partial fractions can help integrate rational functions, where the rational function may
+be too complicated to integrate in its unbroken form. 
+
+Take the below integral for example:
+\[ \int \frac{20x-9}{x^2+11x+30} \,dx \]
+\begin{subequations}
+    \begin{gather}
+        \intertext{We can factor the denominator to get:}
+        \int \frac{20x-9}{(x+6)(x+5)} \,dx
+        \intertext{However, there is no clear way to integrate 
+        using $u$-sub, so we will break this into partial fractions:}
+        \int \frac{A}{x+6} + \frac{B}{x+5} \,dx
+        \intertext{We can solve for $A$ and $B$:}        
+        A(x+5) + B(x+6) = 20x-9 = (A+B)x + 5A + 6B = 20x-9
+        \intertext{This implies that:}
+        A + B = 20 \qquad \text{and} \qquad 5A + 6B = -9
+        \intertext{Which provides us with a system of 
+        equations to solve for $A$ and $B$:}
+        \begin{split}
+            &A = 20 - B \\
+            \implies &5(20-B) + 6B = -9 \\
+            \implies &100+B = -9 \\
+            \implies &B = -109 \\
+            \implies &A = 20 - (-109) = 20 + 109 = 129 \\
+        \end{split}\\[1ex]
+        A = 129 \qquad \text{and} \qquad B = -109 \\
+        \implies \bigintssss \frac{129}{x+6} + \frac{-109}{x+5} \,dx
+        \intertext{We can take split this into two integrals and factor out the 
+        constants, giving us:}
+        129 \int \frac{1}{x+6} \,dx - 109 \int \frac{1}{x+5} \,dx
+        \intertext{Now we can use $u$-sub to integrate, giving us our answer:}
+        129\ln\abs{x+6} - 109\ln\abs{x+5} + C
+    \end{gather}
+\end{subequations}
+
+\section{Cases}
+Depending on what kind of rational function we have, we need to use a specific 
+method to decompose that function. We will look at three cases and their respective
+methods.
+\subsection{Proper Fractions}
+We have a rational function:
+\[ \frac{f(x)}{g(x)} \]
+if $f(x) < g(x)$, then the function is a proper fraction. 
+However, if $f(x) > g(x)$, in which the degree of $f(x)$ is
+greater than the degree of $g(x)$:
+\begin{gather*}
+    f(x) = x^a + x + 1 \\
+    g(x) = x^b + x + 1 \\
+    a > b
+\end{gather*}
+then we have an improper fraction.
+In such a case, it is best to divide $f(x)$ by $g(x)$ using 
+long division or synthetic division in order to get an 
+integrable function:
+\[ q(x) + \frac{r}{g(x)} \]
+
+\paragraph{Example} If
+\begin{align*}
+    f(x) &= x^2+2x+1 \\
+    g(x) &= x+5
+\end{align*}
+then our division will look like:
+\begin{equation*}
+    \polylongdiv{x^2+2x+1}{x+5}
+\end{equation*}
+or with synthetic division:
+\begin{equation*}
+    \polyhornerscheme[x=-5]{x^2+2x+1}
+\end{equation*}
+which will give us the result:
+\[ x-3 + \frac{16}{x+5} \]
+This is very much integrable:
+\begin{align*}
+    \intertext{Let our integral equal $I$:}
+    I &= \int x-3 + \frac{16}{x+5}\,dx \\
+      &= \int x\,dx - \int 3\,dx + \int \frac{16}{x+5}\,dx \\ 
+      &= \int x\,dx - \int 3\,dx + \int 16\frac{1}{x+5}\,dx \\
+      &= \frac{x^2}{2} - 3x + 16\ln\abs{x+5} + C \\
+      &= \frac{1}{2}x^2 - 3x + 16\ln\abs{x+5} + C  
+\end{align*}
+Thus our integral is:
+\[ \boxed{\int\frac{x^2+2x+1}{x+5}\,dx = \frac{1}{2}x^2 - 3x + 16\ln\abs{x+5} + C} \]
+\subsection{Factoring}
+If $g(x)$ can be factored into linear or quadratic factors:
+\[ g(x) = (a_1x+b_1)(a_2x+b_2)\cdots(a_nx+b_n) \]
+then we can decompose our function into multiple fractions. We already covered such 
+a problem in Section 1.1, however we only touched upon linear factors without any
+duplicates.  
+\subsubsection{Duplicate Linear Factors} If $g(x)$ has duplicate linear factors:
+\[ {(ax+b)}^2 \]
+then we will need to decompose our function as so:
+\[ \frac{A}{ax+b} + \frac{B}{(ax+b)^2} + \cdots \]
+\paragraph{Example} If 
+\begin{align*}
+    f(x) &= x^4-2x^2+4x+1 \\
+    g(x) &= x^3-x^2-x-1
+\end{align*}
+we can first divide $f(x)$ by $g(x)$:
+\begin{equation*}
+    \polylongdiv{x^4-2x^2+4x+1}{x^3-x^2-x-1}
+    \implies x+1+\frac{6x+2}{x^3-x^2-x-1}
+\end{equation*}
+Our integral now looks like:
+\begin{align*}
+    I &= \int x+1+\frac{6x+2}{x^3-x^2-x-1} \,dx \\
+      &= \int x \,dx + \int 1 \,dx + \int \frac{6x+2}{x^3-x^2-x-1} \,dx \\
+      &= \frac{1}{2}x^2 + x + \int \frac{6x+2}{x^3-x^2-x-1} \,dx
+\end{align*}
+We can factor $g(x)$:
+\begin{align*}
+    x^3-x^2-x-1 &= x^2(x-1)-(x+1) \\
+                &= (x^2-1)(x+1) \\
+                &= (x-1)(x+1)(x+1) \\
+                &= (x+1)^2(x-1)
+\end{align*}
+isolating the integral, we now have:
+\[ \int \frac{6x+2}{(x+1)^2(x-1)} \,dx \]
+we can break this function into three fractions:
+\[ \frac{6x+2}{(x+1)^2(x-1)} = \frac{A}{x+1} + \frac{B}{(x+1)^2} + \frac{C}{x-1} \]
+this implies that:
+\[ 6x+2 = A(x+1)(x-1) + B(x-1) + C(x+1)^2 \]
+This allows us to isolate two variables, $B$ and $C$, where $A$ can be found after finding
+both variables. If we were to break apart this function intuitively, where we treat $(x+1)^2$
+as two seperate factors $(x+1)(x+1)$, we would end up with the equation:
+\[ 6x+2 = A(x+1)(x-1) + B(x+1)(x-1) + C(x+1)^2 \]
+we can only isolate $C$, leaving us with two unknown variables $A$ and $B$, making this, 
+in the scope of single variable calculus, impossible to solve.
+
+Returning to our the proper equation, we can isolate the variables by determining which values 
+of $x$ cancel out the factors, in which the factors would need to evalulate to 0. We can find 
+these values easily by setting the denominator of our composed fraction to 0:
+\begin{align*}
+    (x+1)^2(x-1) = 0 \implies x = \{-1, 1\} \\
+\end{align*}
+Setting $x$ equal to $-1$ will cancel out $A$ and $C$, isolating $B$:
+\begin{align*}
+    6(-1)+2 &= A(-1+1)(-1-1) + B(-1-1) + C(-1+1)^2 \\
+       -6+2 &= A(0)(-2) + B(-2) + C(0)^2 \\
+         -4 &= -2B \\
+ \implies B &= 2
+\end{align*}
+Setting $x$ equal to $1$ will cancel out $A$ and $B$, isolating $C$:
+\begin{align*}
+    6(1)+2 &= A(1+1)(1-1) + B(1-1) + C(1+1)^2 \\
+       6+2 &= A(2)(0) + B(0) + C(2)^2 \\
+         8 &= 4C \\
+\implies C &= 2
+\end{align*}
+No value of $x$ will isolate $A$, however, since we have both $B$ and $C$, that will 
+not be necessary. We can pick any value for $x$, in which we will be using $x=0$, and 
+substitue in our values for $B$ and $C$, allowing us to solve for $A$:  
+\begin{align*}
+    6(0)+2 &= A(0+1)(0-1) + (2)(0-1) + (2)(0+1)^2 \\
+         2 &= A(1)(-1) + (2)(-1) + (2)(1)^2 \\
+         2 &= -A - 2 + 2 \\
+         2 &= -A \\
+\implies A &= -2
+\end{align*}
+Now that we have our constants, we can integrate:
+\begin{align*}
+    &\int \frac{A}{x+1} \,dx + \int \frac{B}{(x+1)^2} \,dx + \int \frac{C}{x-1} \,dx \\
+    &\implies \int \frac{-2}{x+1} \,dx + \int \frac{2}{(x+1)^2} \,dx + \int \frac{2}{x-1} \,dx \\
+    &\implies -2\int \frac{1}{x+1} \,dx + 2\int \frac{1}{(x+1)^2} \,dx + 2\int \frac{1}{x-1} \,dx \\
+    &\implies -2\ln\abs{x+1} + 2\left(\frac{-1}{x+1}\right) + 2\ln\abs{x-1} + C\\
+    &\implies -2\ln\abs{x+1} - \frac{2}{x+1} + 2\ln\abs{x-1} + C\\
+\end{align*}
+giving us our complete integral:
+\[ \boxed{\int \frac{x^4-2x^2+4x+1}{x^3-x^2-x-1} \,dx = \frac{1}{2}x^2 + x - 2\ln\abs{x+1} - \frac{2}{x+1} + 2\ln\abs{x-1} + C} \]
+
+\end{document}
